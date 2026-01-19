@@ -1,116 +1,58 @@
-import { useState } from "react";
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import InquiryForm from './components/InquiryForm';
+import InquiryDashboard from './components/InquiryDashboard';
 
-const InquiryForm = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    phone: "",
-    email: "",
-    address: "",
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    console.log("Submitted Data:", formData);
-
-    alert("Inquiry submitted successfully!");
-
-    setFormData({
-      name: "",
-      phone: "",
-      email: "",
-      address: "",
-    });
-  };
-
+function App() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white p-6 rounded-xl shadow-md w-full max-w-md space-y-4"
-      >
-        <h2 className="text-2xl font-semibold text-center">
-          Inquiry Form
-        </h2>
+    <Router>
+      <div className="min-h-screen bg-gray-50">
+        {/* Navigation */}
+        <nav className="bg-white shadow-lg">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-between h-16">
+              <div className="flex items-center">
+                <Link to="/" className="text-xl font-bold text-purple-700">
+                  Customer Inquiry System
+                </Link>
+              </div>
+              <div className="flex items-center space-x-4">
+                <Link
+                  to="/"
+                  className="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-purple-700 hover:bg-gray-100"
+                >
+                  New Inquiry
+                </Link>
+                <Link
+                  to="/dashboard"
+                  className="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-purple-700 hover:bg-gray-100"
+                >
+                  Dashboard
+                </Link>
+              </div>
+            </div>
+          </div>
+        </nav>
 
-        {/* Name */}
-        <div>
-          <label className="block text-sm font-medium mb-1">
-            Customer Name
-          </label>
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-            className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
+        {/* Main Content */}
+        <main className="py-6">
+          <Routes>
+            <Route path="/" element={<InquiryForm />} />
+            <Route path="/dashboard" element={<InquiryDashboard />} />
+          </Routes>
+        </main>
 
-        {/* Phone */}
-        <div>
-          <label className="block text-sm font-medium mb-1">
-            Phone Number
-          </label>
-          <input
-            type="tel"
-            name="phone"
-            value={formData.phone}
-            onChange={handleChange}
-            required
-            className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
-
-        {/* Email */}
-        <div>
-          <label className="block text-sm font-medium mb-1">
-            Email Address
-          </label>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-            className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
-
-        {/* Address */}
-        <div>
-          <label className="block text-sm font-medium mb-1">
-            Address
-          </label>
-          <textarea
-            name="address"
-            value={formData.address}
-            onChange={handleChange}
-            required
-            rows="3"
-            className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
-
-        {/* Submit */}
-        <button
-          type="submit"
-          className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
-        >
-          Submit Inquiry
-        </button>
-      </form>
-    </div>
+        {/* Footer */}
+        <footer className="bg-white border-t mt-8">
+          <div className="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
+            <p className="text-center text-gray-500 text-sm">
+              © {new Date().getFullYear()} Customer Inquiry System. All rights reserved.
+            </p>
+          </div>
+        </footer>
+      </div>
+    </Router>
   );
-};
+}
 
-export default InquiryForm;
+export default App;
