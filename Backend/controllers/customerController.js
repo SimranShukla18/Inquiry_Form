@@ -3,9 +3,9 @@ const Customer = require('../models/Customer');
 // Create new customer inquiry
 exports.createInquiry = async (req, res) => {
   try {
-    const { name, phone, email, address } = req.body;
+    const { name, phone, email, address, comment } = req.body;
 
-    console.log('Received inquiry data:', { name, phone, email, address });
+    console.log('Received inquiry data:', { name, phone, email, address, comment });
 
     // Validation
     if (!name || !phone || !email || !address) {
@@ -20,7 +20,8 @@ exports.createInquiry = async (req, res) => {
       name,
       phone,
       email,
-      address
+      address,
+      comment: comment || ""
     });
 
     console.log('Customer object created:', customer);
@@ -46,7 +47,8 @@ exports.createInquiry = async (req, res) => {
           name: req.body.name,
           phone: req.body.phone,
           email: req.body.email,
-          address: req.body.address
+          address: req.body.address,
+          comment: req.body.comment || ""
         });
         await customer.save();
         

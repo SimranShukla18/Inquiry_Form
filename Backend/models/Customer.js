@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const customerSchema = new mongoose.Schema({
   inquiryNo: {
     type: String,
-    unique: true  // Fixed: removed required: true
+    unique: true
   },
   name: {
     type: String,
@@ -24,6 +24,10 @@ const customerSchema = new mongoose.Schema({
   address: {
     type: String,
     required: true
+  },
+  comment: {
+    type: String,
+    default: ""
   },
   status: {
     type: String,
